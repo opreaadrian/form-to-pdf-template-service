@@ -1,0 +1,47 @@
+{
+  "name": "form-to-pdf",
+  "version": "1.0.0",
+  "description": "A service which compiles templates with form data and creates PDF documents",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node src/app.js",
+    "start": "node dist/app.js",
+    "install-hooks": "scripts/install_hooks.js",
+    "test": "./node_modules/.bin/mocha --reporter min --recursive",
+    "test:watch": "npm t -- -w",
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov --require babel-register npm t",
+    "build": "./node_modules/.bin/babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opreaadrian/form-to-pdf-template-service.git"
+  },
+  "author": "Adrian Oprea <adrian@codesi.nz>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/opreaadrian/form-to-pdf-template-service/issues"
+  },
+  "homepage": "https://github.com/opreaadrian/form-to-pdf-template-service#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "nodemon": "^1.9.2",
+    "nyc": "^6.4.4",
+    "vinyl-fs": "^2.4.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "phantomjs-prebuilt": "^2.1.7",
+    "pug": "^2.0.0-beta2",
+    "uuid": "^2.0.2",
+    "webpage": "^0.3.0",
+    "winston": "^2.2.0",
+    "wkhtmltopdf": "^0.3.1"
+  }
+}
