@@ -1,16 +1,16 @@
-import fs from 'fs';
 import express from 'express';
 import ejs from 'ejs';
 import bodyParser from 'body-parser';
-
+import Template from './models/template';
 const logger = require('morgan');
 
-const getTemplateContents = (filename, readMethod) => {
-  return readMethod.apply(null, filename);
+const getTemplateContents = (result) => {
+  return result.get('templateContent');
 };
 
 const compileTemplateWithData = (data, template) => {
-  return ejs.render(template, data)
+  console.log(template, data);
+  return ejs.render(template, data);
 };
 
 const sendCompiledTemplate = (response, template) => {
@@ -19,15 +19,16 @@ const sendCompiledTemplate = (response, template) => {
 
 const compile = (request, response) => {
   const { templateId, data } = request.body;
-  Template.find({ id: templateId })
+  Template.findOne({})
     .then(getTemplateContents)
     .then(compileTemplateWithData.bind(null, data))
-    .then(sendCompiledTemplate.bind(response))
-}
+    .then(sendCompiledTemplate.bind(null, response));
+};
+
 const app = express();
 app.use(bodyParser.json());
 app.use(logger('combined'));
 app.post('/compile', compile);
 app.listen(process.env.PORT || 8080, 'localhost', () => {
-  console.log('Server started');
+  console.log(`Server started on localhost:8080`);
 });
