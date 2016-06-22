@@ -19,7 +19,7 @@ const sendCompiledTemplate = (response, template) => {
 
 const compile = (request, response) => {
   const { templateId, data } = request.body;
-  Template.findOne({})
+  Template.findOne({ _id: templateId })
     .then(getTemplateContents)
     .then(compileTemplateWithData.bind(null, data))
     .then(sendCompiledTemplate.bind(null, response));
@@ -29,6 +29,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(logger('combined'));
 app.post('/compile', compile);
-app.listen(process.env.PORT || 8080, 'localhost', () => {
-  console.log(`Server started on localhost:8080`);
-});
+app.listen(
+  process.env.PORT || 8080,
+  'localhost',
+  () => console.log('Server started on localhost:8080')
+);
